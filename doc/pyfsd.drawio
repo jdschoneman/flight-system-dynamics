@@ -1,0 +1,55 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
+  <diagram name="Page-1" id="GXP7eThMtuKL_ZXtIXkb">
+    <mxGraphModel dx="1892" dy="626" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-1" value="PyFSD" style="whiteSpace=wrap;html=1;fillColor=#76608a;strokeColor=#432D57;fontColor=#ffffff;fontStyle=1" parent="1" vertex="1">
+          <mxGeometry x="270" y="60" width="70" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-2" value="&lt;b&gt;atmosphere&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Get standard day density, pressure, and temperature&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Get adjusted-day pressure and density based on baro and ambient setpoint&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Get speed of sound from above&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Get dynamic pressure based on any of (KEAS, Mach/alt, TAS/alt)&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b1ddf0;strokeColor=#10739e;" parent="1" vertex="1">
+          <mxGeometry x="-50" y="290" width="200" height="230" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-3" value="__init__" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#b0e3e6;strokeColor=#0e8088;" parent="1" vertex="1">
+          <mxGeometry x="40" y="50" width="80" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="ArinQPVd3GJ_bWvtsIov-5" target="ArinQPVd3GJ_bWvtsIov-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-5" value="&lt;b&gt;aero&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Store and return body axis total coefficients as a function of Mach, AoA, beta, and control surfaces&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Store and return body axis coefficient slopes with respect to any independent variable&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Store and return wind axis force coefficients as a function of any independent variable&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Store rate derivative information&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="470" y="180" width="200" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-6" value="&lt;b&gt;prop&lt;/b&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Obtain propulsion forces/moments and fuel consumption as a function of Mach, altitude, and throttle&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="470" y="560" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.996;entryY=0.672;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ArinQPVd3GJ_bWvtsIov-7" target="ArinQPVd3GJ_bWvtsIov-8" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="430" y="390" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="450" y="495" />
+              <mxPoint x="450" y="348" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-7" value="&lt;div&gt;&lt;b&gt;weight_balance&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Store and return aircraft weight, CG, and inertias as a function of fuel fill level&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" parent="1" vertex="1">
+          <mxGeometry x="470" y="440" width="200" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ArinQPVd3GJ_bWvtsIov-8" target="ArinQPVd3GJ_bWvtsIov-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-8" value="&lt;div&gt;&lt;b&gt;system&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Stores aero, weight_balance, prop, and other subsystems associated with vehicle system operation&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Stores and maintains internal states&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Obtain&amp;nbsp;nonlinear equations of motion for solving dynamic system and/or trim equations&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Obtain linearized equations of motion about a supplied trim state&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="200" y="180" width="200" height="250" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-9" value="&lt;div&gt;&lt;b&gt;solution&lt;/b&gt;&lt;/div&gt;&lt;div&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;- Get trim solutions for a given system and flight condition&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;- Solve and plot linear and nonlinear system equations of motion&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#bac8d3;strokeColor=#23445d;" parent="1" vertex="1">
+          <mxGeometry x="200" y="510" width="200" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1.004;entryY=0.781;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ArinQPVd3GJ_bWvtsIov-6" target="ArinQPVd3GJ_bWvtsIov-8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ArinQPVd3GJ_bWvtsIov-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=-0.004;entryY=0.549;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ArinQPVd3GJ_bWvtsIov-2" target="ArinQPVd3GJ_bWvtsIov-9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
