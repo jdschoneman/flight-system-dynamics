@@ -199,6 +199,7 @@ class StabilityDerivatives:
         self.Cz_alpha = np.array(df.ZW/force_alpha_scale)
         self.Cm_alpha = np.array(df.MW/pitch_alpha_scale)
 
+
         # Alpha dot
         force_alpha_dot_scale = force_alpha_scale*self.Cref/(2*u0)
         pitch_alpha_dot_scale = df.Qinf*self.Sref*self.Cref**2/(2*df.Iyy*u0**2)
@@ -214,8 +215,11 @@ class StabilityDerivatives:
         # Elevator control
         force_de_scale = df.Qinf*self.Sref*self.g/(df.Weight)
         pitch_de_scale = df.Qinf*self.Sref*self.Cref/(df.Iyy)
+        self.Cx_de = np.array(df.XDE/force_de_scale)
         self.Cz_de = np.array(df.ZDE/force_de_scale)
         self.Cm_de = np.array(df.MDE/pitch_de_scale)
+
+        self.calc_CL_CD()
 
         # TODO -- recover the exact L/N terms with non-negligible Ixz
         # Beta
@@ -277,6 +281,11 @@ class StabilityDerivatives:
             Cn_stab = Cl_body*sa + Cn_body*ca
             return Cl_stab, Cn_stab
 
+        # Rotate the Cx and Cz terms, with Cx analogous to Cl and Cz analogous
+        # to Cn
+        self.Cx_alpha, self.Cz_alpha = rotate_pair(self.Cx_alpha,
+                                                   self.Cz_alpha)
+
         # Side-force derivative: body Y and stability Y are normally identical
         # for this alpha-only rotation, so Cy terms do not need transformation.
         self.Cl_beta, self.Cn_beta = rotate_pair(self.Cl_beta, self.Cn_beta)
@@ -287,7 +296,47 @@ class StabilityDerivatives:
 
         self.derivative_frame = 'stability'
 
+    def calc_CL_CD(self, alpha_col = 'Alpha'):
+        """
+        Calculate lift and drag coefficient derivatives with respect to alpha
 
+        Returns
+        -------
+        None.
+
+        """
+
+        if self.derivative_frame == 'body':
+            alpha = np.asarray(self.dataframe[alpha_col], dtype=float)
+
+            if 'deg' in self.units[alpha_col].lower():
+                alpha = np.deg2rad(alpha)
+
+            ca = np.cos(alpha)
+            sa = np.sin(alpha)
+
+            def rotate_pair(Cx_body, Cz_body):
+                Cx_stab = Cx_body*ca + Cz_body*sa
+                Cz_stab = -Cx_body*sa + Cz_body*ca
+                return Cx_stab, Cz_stab
+
+            Cx_alpha, Cz_alpha = rotate_pair(self.Cx_alpha,
+                                             self.Cz_alpha)
+            Cx_de, Cz_de = rotate_pair(self.Cx_de,
+                                       self.Cz_de)
+
+        else:
+            Cx_alpha = self.Cx_alpha
+            Cz_alpha = self.Cz_alpha
+
+            Cx_de = self.Cx_de
+            Cz_de = self.Cz_de
+
+        self.CL_alpha = -Cz_alpha
+        self.CD_alpha = -Cx_alpha
+
+        self.CL_de = -Cz_de
+        self.CD_de = -Cx_de
 
     def plot_derivative(
         self,
