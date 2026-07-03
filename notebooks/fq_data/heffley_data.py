@@ -277,9 +277,41 @@ class StabilityDerivatives:
         sa = np.sin(alpha)
 
         def rotate_pair(Cl_body, Cn_body):
-            Cl_stab = Cl_body*ca - Cn_body*sa
-            Cn_stab = Cl_body*sa + Cn_body*ca
+            Cl_stab = Cl_body*ca + Cn_body*sa
+            Cn_stab = -Cl_body*sa + Cn_body*ca
             return Cl_stab, Cn_stab
+
+        def rotate_rate_derivative_matrix(Cl_p_body, Cn_p_body,
+                                          Cl_r_body, Cn_r_body):
+            """
+            Transform lateral-directional roll/yaw rate derivatives from body axes
+            to stability axes.
+
+            This accounts for both the transformation of the rolling/yawing moment
+            components and the transformation of the roll/yaw rate components.
+            """
+
+            Cl_p_stab = (ca**2 * Cl_p_body
+                         + ca*sa * Cn_p_body
+                         + ca*sa * Cl_r_body
+                         + sa**2 * Cn_r_body)
+
+            Cl_r_stab = (-ca*sa * Cl_p_body
+                         - sa**2 * Cn_p_body
+                         + ca**2 * Cl_r_body
+                         + ca*sa * Cn_r_body)
+
+            Cn_p_stab = (-ca*sa * Cl_p_body
+                         + ca**2 * Cn_p_body
+                         - sa**2 * Cl_r_body
+                         + ca*sa * Cn_r_body)
+
+            Cn_r_stab = (sa**2 * Cl_p_body
+                         - ca*sa * Cn_p_body
+                         - ca*sa * Cl_r_body
+                         + ca**2 * Cn_r_body)
+
+            return Cl_p_stab, Cn_p_stab, Cl_r_stab, Cn_r_stab
 
         # Rotate the Cx and Cz terms, with Cx analogous to Cl and Cz analogous
         # to Cn
@@ -289,10 +321,15 @@ class StabilityDerivatives:
         # Side-force derivative: body Y and stability Y are normally identical
         # for this alpha-only rotation, so Cy terms do not need transformation.
         self.Cl_beta, self.Cn_beta = rotate_pair(self.Cl_beta, self.Cn_beta)
-        self.Cl_p, self.Cn_p = rotate_pair(self.Cl_p, self.Cn_p)
-        self.Cl_r, self.Cn_r = rotate_pair(self.Cl_r, self.Cn_r)
+        # self.Cl_p, self.Cn_p = rotate_pair(self.Cl_p, self.Cn_p)
+        # self.Cl_r, self.Cn_r = rotate_pair(self.Cl_r, self.Cn_r)
         self.Cl_da, self.Cn_da = rotate_pair(self.Cl_da, self.Cn_da)
         self.Cl_dr, self.Cn_dr = rotate_pair(self.Cl_dr, self.Cn_dr)
+
+        self.Cl_p, self.Cn_p, self.Cl_r, self.Cn_r = rotate_rate_derivative_matrix(self.Cl_p,
+                                                                                   self.Cn_p,
+                                                                                   self.Cl_r,
+                                                                                   self.Cn_r)
 
         self.derivative_frame = 'stability'
 
